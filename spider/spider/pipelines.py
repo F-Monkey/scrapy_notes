@@ -27,7 +27,7 @@ r = redis.Redis(host=settings['REDIS_HOST'], port=settings['REDIS_PORT'])
 
 
 def processUserURL(url):
-    return url.split('&')[0]
+    return url.split('&ie')[0]
 
 
 user_bloomFilter = BloomFilter(capacity=2 << 15, error_rate=0.01)

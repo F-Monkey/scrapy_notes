@@ -6,6 +6,7 @@ import scrapy
 from spider.items import TiebaItem, TiebaUserItem, TitleItem
 from scrapy.crawler import CrawlerProcess
 from scrapy_redis.spiders import RedisSpider
+import re
 
 headers = {}
 headers['User-Agent'] = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36" 
@@ -27,7 +28,7 @@ class BaiduTiebaSpider(scrapy.Spider):
             'ITEM_PIPELINES':{'spider.pipelines.TiebaPipeline':300},
         }
     
-    MAX_DEEP_INDEX = 2
+    MAX_DEEP_INDEX = 100
     
     def start_requests(self):
         for i in range(self.MAX_DEEP_INDEX):
@@ -111,7 +112,9 @@ class TitleDetailSpider(RedisSpider):
         for floor in floors:
             title_url = response.url
             user_url = baidu_base_url_no_https + floor.xpath('.//div[1]/ul/li[3]/a/@href').extract_first()
-            content = floor.xpath('.//div[2]/div[1]/cc/div[2]/text()').extract_first()
+            content = floor.xpath('.//div[2]/div[1]/cc/div[2]').extract_first()
+            # 对content进行处理：（删除表情，保留文字）
+            content = re.sub(r'<.*?>','',content).replace('\n','').strip()
             imgs = floor.xpath('.//img[@class="BDE_Image"]/@src').extract()
             item = TitleItem()
             item['title_url'] = title_url

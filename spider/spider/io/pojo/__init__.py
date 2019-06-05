@@ -53,7 +53,7 @@ class Title(Base):
     
     id = Column('id', INTEGER, primary_key=True)
     url = Column('url', String(250))
-    title = Column('title', String(50))
+    title = Column('title', String(100))
     user_url = Column('user_url', String(250))
 
     def __repr__(self):
