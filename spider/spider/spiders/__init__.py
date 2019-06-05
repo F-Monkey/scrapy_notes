@@ -18,6 +18,9 @@ headers['Host'] = 'tieba.baidu.com'
 baidu_base_url = 'https://tieba.baidu.com'
 baidu_base_url_no_https = 'http://tieba.baidu.com'
 
+from pybloom_live.pybloom import BloomFilter
+
+title_url_bloom = BloomFilter(capacity=2 << 15, error_rate=0.01)
 
 class BaiduTiebaSpider(scrapy.Spider):
     name = "tieba";
@@ -27,8 +30,9 @@ class BaiduTiebaSpider(scrapy.Spider):
     custom_settings = {
             'ITEM_PIPELINES':{'spider.pipelines.TiebaPipeline':300},
         }
+  
     
-    MAX_DEEP_INDEX = 100
+    MAX_DEEP_INDEX = 1000
     
     def start_requests(self):
         for i in range(self.MAX_DEEP_INDEX):
@@ -39,6 +43,11 @@ class BaiduTiebaSpider(scrapy.Spider):
         for li in title_lis:
             tiebaItem = TiebaItem()
             tiebaItem['url'] = baidu_base_url + li.xpath('.//div/div[2]/div/div/a/@href').extract_first()
+            # 抓过的帖子就没必要再抓了
+            if tiebaItem['url'] in title_url_bloom:
+                continue 
+            else:
+                title_url_bloom.add(tiebaItem['url'])
             tiebaItem['title'] = li.xpath('.//div/div[2]/div/div/a/text()').extract_first()
             user_url = li.xpath('.//div/div[2]/div/div[2]/span[1]/span[1]/a/@href').extract_first()
             if 'tbmall/tshow' in user_url:  # vip sign
