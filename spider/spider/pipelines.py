@@ -30,7 +30,7 @@ def processUserURL(url):
     return url.split('&ie=')[0]
 
 
-user_bloomFilter = BloomFilter(capacity=2 << 15, error_rate=0.01)
+user_bloomFilter = BloomFilter(capacity=2 << 25, error_rate=0.01)
 img_bloomFilter = BloomFilter(capacity=2 << 15, error_rate=0.01)
 
 
@@ -57,7 +57,9 @@ class TitleDetailPipeline(object):
         if 'home/main?un' in user_url and user_url not in user_bloomFilter:
             user_bloomFilter.add(user_url)
             r.lpush('tieba:user_urls', user_url)
-        content=item['content'].strip()
+        content = item['content'].strip()
+        if len(content) > 2000:
+            return item
         imgs = []
         if item['img_urls'] and len(item['img_urls']):
             for img_url in item['img_urls']:
@@ -68,7 +70,7 @@ class TitleDetailPipeline(object):
                 else:
                     print('img_url:%s has founded' % img_url)
         if len(content) > 0:
-            detail = TitleDetail(title_url=item['title_url'], user_url=user_url,content =content )
+            detail = TitleDetail(title_url=item['title_url'], user_url=user_url, content=content)
             session.add(detail)  # @UndefinedVariable
         if len(imgs) > 0:
             session.add_all(imgs)  # @UndefinedVariable

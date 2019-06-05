@@ -22,6 +22,7 @@ from pybloom_live.pybloom import BloomFilter
 
 title_url_bloom = BloomFilter(capacity=2 << 15, error_rate=0.01)
 
+
 class BaiduTiebaSpider(scrapy.Spider):
     name = "tieba";
     allowed_domains = ['tieba.baidu.com']
@@ -30,7 +31,6 @@ class BaiduTiebaSpider(scrapy.Spider):
     custom_settings = {
             'ITEM_PIPELINES':{'spider.pipelines.TiebaPipeline':300},
         }
-  
     
     MAX_DEEP_INDEX = 1000
     
@@ -123,7 +123,7 @@ class TitleDetailSpider(RedisSpider):
             user_url = baidu_base_url_no_https + floor.xpath('.//div[1]/ul/li[3]/a/@href').extract_first()
             content = floor.xpath('.//div[2]/div[1]/cc/div[2]').extract_first()
             # 对content进行处理：（删除表情，保留文字）
-            content = re.sub(r'<.*?>','',content).replace('\n','').strip()
+            content = re.sub(r'<.*?>', '', content).replace('\n', '').strip()
             imgs = floor.xpath('.//img[@class="BDE_Image"]/@src').extract()
             item = TitleItem()
             item['title_url'] = title_url
