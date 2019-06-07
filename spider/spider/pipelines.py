@@ -30,7 +30,7 @@ def processUserURL(url):
     return url.split('&ie=')[0]
 
 
-user_bloomFilter = BloomFilter(capacity=2 << 15, error_rate=0.01)
+user_bloomFilter = BloomFilter(capacity=2 << 25, error_rate=0.01)
 img_bloomFilter = BloomFilter(capacity=2 << 15, error_rate=0.01)
 
 
@@ -58,6 +58,9 @@ class TitleDetailPipeline(object):
             user_bloomFilter.add(user_url)
             r.lpush('tieba:user_urls', user_url)
         content=item['content'].strip()
+        if len(content) > 1500:
+            print('long content :%s  \n ... ignore' % content)
+            return item
         imgs = []
         if item['img_urls'] and len(item['img_urls']):
             for img_url in item['img_urls']:
@@ -73,16 +76,16 @@ class TitleDetailPipeline(object):
         if len(imgs) > 0:
             session.add_all(imgs)  # @UndefinedVariable
         session.commit()  # @UndefinedVariable
+        return item
 
     
 class UserPipeline(object):
     
     def process_item(self, item, spider):
         # u = User(url=item['url'], nickName=item['nickName'], sex=item['sex'], age=item['age'], title_count=item['title_count'])
-        if item:
-            user_url = processUserURL(item['url'])
-            u = User(url=user_url, nickName=item['nickName'], sex=item['sex'], head=item['head'])
-            session.add(u)  # @UndefinedVariable
-            session.commit()  # @UndefinedVariable
-            return item
+        user_url = processUserURL(item['url'])
+        u = User(url=user_url, nickName=item['nickName'], sex=item['sex'], head=item['head'])
+        session.add(u)  # @UndefinedVariable
+        session.commit()  # @UndefinedVariable
+        return item
 

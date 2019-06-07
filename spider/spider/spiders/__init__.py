@@ -1,7 +1,12 @@
+# -*- coding: utf-8 -*-
 # This package will contain the spiders of your Scrapy project
 #
 # Please refer to the documentation for information on how to create and manage
 # your spiders.
+import sys
+sys.path.append('/home/tangjf/programs/workspace/scrapy_notes/spider')
+print('\n'.join(sys.path))
+
 import scrapy
 from spider.items import TiebaItem, TiebaUserItem, TitleItem
 from scrapy.crawler import CrawlerProcess
@@ -137,7 +142,7 @@ class TitleDetailSpider(RedisSpider):
         if next_page:
             yield scrapy.Request(url=baidu_base_url + next_page, method='get', callback=self.parse)
 
-            
+
 if __name__ == '__main__':
     process = CrawlerProcess()
     process.crawl(BaiduTiebaSpider)
