@@ -60,9 +60,6 @@ class TitleDetailPipeline(object):
         content=item['content'].strip()
         if len(content) > 1500:
             print('long content :%s  \n ... ignore' % content)
-        content = item['content'].strip()
-        if len(content) > 2000:
-            return item
         imgs = []
         if item['img_urls'] and len(item['img_urls']):
             for img_url in item['img_urls']:
