@@ -23,29 +23,31 @@ class User(Base):
     def __repr__(self):
         return "%s" % self.url
 
+
 class TitleDetail(Base):
     
     __tablename__ = 'title_detail'
     
-    id = Column('id',INTEGER,primary_key=True)
-    title_url = Column('title_url',String(250))
-    content = Column('content',String(5000))
-    user_url = Column('user_url',String(250))
+    id = Column('id', INTEGER, primary_key=True)
+    title_url = Column('title_url', String(250))
+    content = Column('content', String(5000))
+    user_url = Column('user_url', String(250))
     
     def __repr__(self):
         return "%s" % self.content
+
 
 class Img(Base):
     
     __tablename__ = 'img'
     
-    id = Column('id',INTEGER,primary_key=True)
-    title_url = Column('title_url',String(250))
-    user_url = Column('user_url',String(250))
+    id = Column('id', INTEGER, primary_key=True)
+    title_url = Column('title_url', String(250))
+    user_url = Column('user_url', String(250))
     # img_url
-    img_url = Column('img_url',String(250))
+    img_url = Column('img_url', String(250))
     # img local url ...
-    local_url = Column('img_local_url',String(200))
+    local_url = Column('img_local_url', String(200))
 
 
 class Title(Base):
@@ -53,10 +55,9 @@ class Title(Base):
     
     id = Column('id', INTEGER, primary_key=True)
     url = Column('url', String(250))
-    title = Column('title', String(100))
+    title = Column('title', String(150))
     user_url = Column('user_url', String(250))
 
     def __repr__(self):
         return '%s' % self.title
-
 

@@ -60,6 +60,8 @@ class TitleDetailPipeline(object):
         content=item['content'].strip()
         if len(content) > 1500:
             print('long content :%s  \n ... ignore' % content)
+        content = item['content'].strip()
+        if len(content) > 2000:
             return item
         imgs = []
         if item['img_urls'] and len(item['img_urls']):
@@ -71,7 +73,7 @@ class TitleDetailPipeline(object):
                 else:
                     print('img_url:%s has founded' % img_url)
         if len(content) > 0:
-            detail = TitleDetail(title_url=item['title_url'], user_url=user_url,content =content )
+            detail = TitleDetail(title_url=item['title_url'], user_url=user_url, content=content)
             session.add(detail)  # @UndefinedVariable
         if len(imgs) > 0:
             session.add_all(imgs)  # @UndefinedVariable
