@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>学生注册页面</title>
+<!-- 这是原始的样子 -->
+</head>
+<!-- /head 漏下了 -->
+<!-- <body background-image:url("C:\Users\Administrator\Desktop\timg.ipg")> -->
+<body
+	style="background-image: url('' C : \Users\Administrator\Desktop\timg.ipg ')">
+	<!-- 样式这样写 -->
+	<form action="/user/login" method="get">
+		<!-- form 包含table -->
+		<!-- <table bgcolor="white"> -->
+		<table style="backgroud-color: white">
+			<tr>
+				<!-- tr在table里 -->
+				<td>
+					<!--背景图片--> <!--注册页面-->
+			<tr>
+				<td>用户名</td>
+				<td><input type="text" name="username" /></td>
+			</tr>
+			<tr>
+				<td>密码</td>
+				<td><input type="password" name="password" /></td>
+			</tr>
+			<tr>
+				<td>验证码</td>
+				<td><img src="/getCheckCode"/></td>
+				<td><input type="text" name="checkcode" /></td>
+			</tr>
+			<tr>
+				<td>提交</td>
+				<td><input type="submit" value="submit" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
