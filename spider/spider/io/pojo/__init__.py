@@ -6,6 +6,7 @@
 from sqlalchemy.sql.schema import Column
 from sqlalchemy.sql.sqltypes import INTEGER, String
 from spider.io.DB import Base
+import json
 
 
 class User(Base):
@@ -21,7 +22,16 @@ class User(Base):
     title_count = Column(u'title_count', String(20))
     
     def __repr__(self):
-        return "%s" % self.url
+        dict_ = {
+                'id':self.id,
+                'url':self.url,
+                'nickName':self.nickName,
+                'sex':self.sex,
+                'head':self.head,
+                'age':self.age,
+                'title_count':self.title_count
+            }
+        return json.dumps(dict_) 
 
 
 class TitleDetail(Base):

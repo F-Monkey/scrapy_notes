@@ -27,6 +27,9 @@ def redisTest2():
     list_ = r.lrange('tieba:user_urls',0,-1)
     print(list_)
 
+def printFloat():
+    f = 0.01
+    print('%f' %f)
 
 if __name__ == '__main__':
-    redisTest2()
+    printFloat()

@@ -2,9 +2,9 @@ from py_eureka_client import eureka_client
 import tornado
 from tornado.web import RequestHandler
 
-client_port = 7070
+client_port = 7078
 app_name = "spider"
-eureka_server = 'http://127.0.0.1:1111/eureka'
+eureka_server = 'http://localhost:1111/eureka'
 instance_port = client_port
 
 

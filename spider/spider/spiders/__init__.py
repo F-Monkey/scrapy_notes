@@ -40,7 +40,7 @@ class BaiduTiebaSpider(scrapy.Spider):
     MAX_DEEP_INDEX = 1000
     
     def start_requests(self):
-        for i in range(self.MAX_DEEP_INDEX):
+        for i in range(self.MAX_DEEP_INDEX,0,-1):
             yield scrapy.Request(url=self.root_url + str(i * 50), method='get', callback=self.parse)
         
     def parse(self, response):
