@@ -3,6 +3,9 @@ sudo apt-get install python3-mysqld
 pip3 install pymysql  
 pip3 install sqlalchemy  
 
+mysql [charset_settings](charset_settings)
+
+
 # how to use sqlalchemy???
 
 init connection --> create engine  
