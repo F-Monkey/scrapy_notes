@@ -1,5 +1,10 @@
 # scrapy note :
 
+### catalog:  
+-- [io introduction](spider/io/readme.md)
+-- [eureka introduction](spider/eureka/README.md)
+
+
 ### 1、day01:
 
 #### 大致描述一下自己理解的scrapy pipeline工作原理

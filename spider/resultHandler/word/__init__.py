@@ -11,6 +11,9 @@ def anlysisUser(url):
 def queryUsers(*args):
     return session.query(User)  # @UndefinedVariable
 
+'''
+    用户评论内容构建
+'''
 class ContentProcessor(object):
     n_s = []
     ns_s = []
@@ -18,7 +21,10 @@ class ContentProcessor(object):
     colorMap = {}
     def __init__(self,user_url):
         self.user_url = user_url
-        
+    
+    '''
+        构建tags权重
+    '''
     def analisysUserContent(self):
         contents = session.query(TitleDetail).filter(TitleDetail.user_url==self.user_url).all()  # @UndefinedVariable
         if len(contents) == 0:
@@ -27,7 +33,9 @@ class ContentProcessor(object):
         sentence = reduce(lambda c1,c2:c1 + c2,contents)
         tags = analyse.extract_tags(sentence=sentence ,topK=200,allowPOS=('n','ns','vn'),withWeight=True,withFlag=True)
         return tags
-    
+    '''
+        根据词性构建颜色，用于区分数据信息
+    '''
     def __color_fun__(self, word, font_size, position, orientation,
         font_path, random_state):
         if word in self.n_s:
