@@ -62,7 +62,7 @@ spider会yield一般会yield两类数据
 -----------------------
 
 ### 5、day05 wordcloud & jieba  
-@See [../spider/resultHandler/word/__init__.py](../spider/resultHandler/word/__init__.py)
+@See [../spider/resultHandler/word/__init__.py](../spider/resultHandler/word/__init__.py)  
 1、wordcloud color_func  
 2、analysis.extract_tags
 
