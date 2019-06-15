@@ -3,10 +3,12 @@ from tornado.web import RequestHandler
 from spider.io.DB import session
 from spider.io.pojo import User
 import pyrestful
+from pyrestful.rest import get
 
 
 class WordsHandler(pyrestful.rest.RestHandler):
     
+    @get(_path='/contents')
     def get(self, *args:str, **kwargs:str)->None:
         RequestHandler.get(self, *args, **kwargs)
     
@@ -14,6 +16,7 @@ class WordsHandler(pyrestful.rest.RestHandler):
         RequestHandler.post(self, *args, **kwargs)
 
 class UserHandler(pyrestful.rest.RestHandler):
+    
     def get(self, *args:str, **kwargs:str)->None:
         return session.query(User)  # @UndefinedVariable
 
