@@ -7,6 +7,7 @@ from sqlalchemy.engine import create_engine
 from spider.io import settings
 from sqlalchemy.orm.session import sessionmaker
 from sqlalchemy.ext.declarative.api import declarative_base
+import os
 
 #!/usr/bin/python3
 '''
@@ -22,3 +23,5 @@ session = Session()
 # pojos parent
 Base = declarative_base()
 
+if __name__ == '__main__':
+    print(os.path.dirname(settings.__file__))

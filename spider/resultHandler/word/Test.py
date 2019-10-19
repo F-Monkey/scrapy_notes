@@ -12,6 +12,7 @@ def testQueryUser():
     users = queryUsers()
     for u in users:
         print(str(u))
+
 def testAnalysisWords():
     url = 'http://tieba.baidu.com/home/main?un=%E6%97%A0%E5%90%8D12345678xs'
     cp = ContentProcessor(url)

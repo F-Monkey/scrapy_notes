@@ -5,6 +5,7 @@
 # your spiders.
 import sys
 sys.path.append('/home/tangjf/programs/workspace/scrapy_notes/spider')
+
 print('\n'.join(sys.path))
 
 import scrapy

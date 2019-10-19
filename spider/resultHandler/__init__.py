@@ -3,14 +3,18 @@ from tornado.web import RequestHandler
 from spider.io.DB import session
 from spider.io.pojo import User
 import pyrestful
-from pyrestful.rest import get
+from pyrestful.rest import get,post,delete
+from resultHandler.word import ContentProcessor
+import socket
 
+user_content_dict = {}
 
 class WordsHandler(pyrestful.rest.RestHandler):
     
-    @get(_path='/contents')
-    def get(self, *args:str, **kwargs:str)->None:
-        RequestHandler.get(self, *args, **kwargs)
+    @get(_path='/contents/{userUrl}')
+    def get(self, userUrl)->None:
+        cp = ContentProcessor(userUrl)
+        return cp.analisysUserContent()
     
     def post(self, *args:str, **kwargs:str)->None:
         RequestHandler.post(self, *args, **kwargs)
@@ -25,8 +29,9 @@ class UserHandler(pyrestful.rest.RestHandler):
         RequestHandler.post(self, *args, **kwargs)
 
 class ImageHandler(pyrestful.rest.RestHandler):
+    @get(_path='/worldCloud/gen/{userUrl}')
     def get(self, *args:str, **kwargs:str)->None:
-        RequestHandler.get(self, *args, **kwargs)
+        pass
     
     def post(self, *args:str, **kwargs:str)->None:
         RequestHandler.post(self, *args, **kwargs)

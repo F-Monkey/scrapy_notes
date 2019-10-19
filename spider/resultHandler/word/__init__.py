@@ -64,7 +64,7 @@ class ContentProcessor(object):
                 color_func = self.__color_fun__
             )
         w.generate_from_frequencies(text)
-        cloud_img = str(hash(self.user_url)) +'.png'
+        from spider.io import settings
+        cloud_img = settings.FILE_ROOT_PATH + str(hash(self.user_url)) +'.png'
         w.to_file(cloud_img)
         return cloud_img
-

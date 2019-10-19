@@ -1,5 +1,8 @@
 # scrapy note :
 
+### scrapy
+![img](../spider/scrapy.jpg)
+
 ### catalog:  
 -- [io introduction](spider/io/readme.md)  
 -- [eureka introduction](spider/eureka/README.md)
